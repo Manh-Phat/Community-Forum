@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký thành viên - Diễn Đàn IT</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="auth-page">
+
+    <div class="auth-container">
+        
+        <div class="auth-header">
+            <a href="index.html" class="logo">Diễn Đàn <span class="highlight">IT</span></a>
+            <p class="auth-subtitle">Tạo tài khoản để tham gia thảo luận ngay!</p>
+        </div>
+
+        <form id="register-form">
+            <div class="form-group">
+                <label>Tên hiển thị</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="reg-username" placeholder="VD: MinhHieu99" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="reg-email" placeholder="VD: hieu@example.com" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Mật khẩu</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="reg-password" placeholder="Tự đặt mật khẩu..." required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Nhập lại mật khẩu</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-check-circle"></i>
+                    <input type="password" id="reg-confirm-pass" placeholder="Nhập lại mật khẩu trên..." required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Đăng ký tài khoản</button>
+        </form>
+
+        <div class="divider"><span>Hoặc đăng ký bằng</span></div>
+
+        <button class="btn btn-google btn-block">
+            <i class="fab fa-google" style="color: #db4437;"></i> Google
+        </button>
+
+        <div class="auth-footer">
+            <p>Đã có tài khoản? <a href="login.html">Đăng nhập ngay</a></p>
+            <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Về trang chủ</a>
+        </div>
+    </div>
+
+    
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+
+</body>
+</html>

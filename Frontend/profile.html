@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ cá nhân - Chỉnh sửa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: #f0f2f5; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+        }
+        .profile-card {
+            background: white; 
+            width: 450px; /* Tăng chiều rộng một chút cho thoải mái */
+            padding: 40px; 
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            text-align: center;
+        }
+        .avatar-preview {
+            width: 120px; 
+            height: 120px; 
+            border-radius: 50%; 
+            object-fit: cover;
+            border: 4px solid #3b82f6; 
+            margin-bottom: 20px;
+            background-color: #eee;
+        }
+        .form-group { 
+            margin-bottom: 15px; 
+            text-align: left; 
+        }
+        label { 
+            font-weight: 600; 
+            display: block; 
+            margin-bottom: 8px; 
+            color: #333;
+        }
+        /* Class chung cho input và textarea */
+        .form-control { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            box-sizing: border-box; /* Quan trọng: để padding không làm vỡ khung */
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+        .form-control:focus {
+            border-color: #3b82f6;
+            outline: none;
+        }
+        textarea.form-control {
+            resize: vertical; /* Cho phép kéo dãn chiều dọc */
+            min-height: 80px;
+            font-family: inherit;
+        }
+        .btn-save {
+            background: #3b82f6; 
+            color: white; 
+            border: none; 
+            padding: 12px 20px;
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        .btn-save:hover { background: #2563eb; }
+        .back-link { 
+            display: block; 
+            margin-top: 20px; 
+            text-decoration: none; 
+            color: #666; 
+            font-size: 0.9rem;
+        }
+        .back-link:hover { text-decoration: underline; color: #333; }
+    </style>
+</head>
+<body>
+
+    <div class="profile-card">
+        <h2>Cập nhật hồ sơ</h2>
+        
+        <img src="images/default-avatar.png" id="avatarImg" class="avatar-preview">
+        
+        <div class="form-group">
+            <label>Tên hiển thị (*):</label>
+            <input type="text" id="inputName" class="form-control" placeholder="Nhập tên của bạn...">
+        </div>
+
+        <div class="form-group">
+            <label>Công việc / Chức danh:</label>
+            <input type="text" id="inputJob" class="form-control" placeholder="VD: Sinh viên, Frontend Dev...">
+        </div>
+
+        <div class="form-group">
+            <label>Tiểu sử ngắn:</label>
+            <textarea id="inputBio" class="form-control" placeholder="Giới thiệu đôi chút về bản thân..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Link Facebook (Tùy chọn):</label>
+            <input type="text" id="inputFacebook" class="form-control" placeholder="https://facebook.com/...">
+        </div>
+
+        <div class="form-group">
+            <label>Link ảnh Avatar (URL):</label>
+            <input type="text" id="inputAvatar" class="form-control" placeholder="Dán link ảnh vào đây..." oninput="previewAvatar()">
+            <small style="color: #888; font-size: 0.8rem;">Để trống sẽ tự tạo ảnh theo tên.</small>
+        </div>
+
+        <button class="btn-save" id="saveProfileBtn" onclick="saveProfile()">Lưu thay đổi</button>
+        <a href="index.html" class="back-link">← Quay lại trang chủ</a>
+    </div>
+
+    
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>

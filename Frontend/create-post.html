@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng bài mới - Diễn Đàn IT</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="logo">Diễn Đàn <span class="highlight">IT</span></a>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm bài viết, thảo luận...">
+                <i class="fas fa-search"></i>
+            </div>
+
+            <div class="nav-actions" style="display: flex; align-items: center; margin-left: auto;">
+                
+                <div id="guest-actions" style="display: flex; gap: 10px;">
+                    <a href="login.html" class="btn btn-outline" style="border: 1px solid #007bff; color: #007bff; padding: 8px 15px; border-radius: 5px; text-decoration: none;">Đăng nhập</a>
+                    <a href="register.html" class="btn btn-primary" style="background-color: #007bff; color: white; padding: 8px 15px; border-radius: 5px; text-decoration: none;">Đăng ký</a>
+                </div>
+
+                <div id="user-actions" style="display: none; align-items: center; gap: 20px;">
+                    <a href="create-post.html" class="btn btn-primary" style="background-color: #2563eb; color: white; padding: 8px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-pen-to-square"></i> Đăng bài
+                    </a>
+                    
+                    <div class="nav-user" style="display: flex; align-items: center; gap: 10px;">
+                        <img src="https://ui-avatars.com/api/?name=User&background=random" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                        <span style="font-weight: 600; font-size: 1rem; color: #333;">Loading...</span>
+                    </div>
+                    
+                    <button onclick="logout()" style="border: none; background: none; color: #dc2626; cursor: pointer; font-size: 1rem; font-weight: 600; display: flex; align-items: center; gap: 5px;">
+                        <i class="fa-solid fa-right-from-bracket"></i> Thoát
+                    </button>
+                </div>
+            </div>
+            </div>
+    </nav>
+
+    <div class="container main-content no-grid">
+        <div class="create-post-layout">
+            
+            <div class="create-post-box">
+                <div class="box-header">
+                    <h2><i class="fas fa-pen-nib"></i> Tạo bài viết mới</h2>
+                </div>
+                
+                <form id="create-post-form">
+                    <div class="form-group">
+                        <label>Tiêu đề bài viết</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-heading"></i>
+                            <input type="text" id="post-title" class="form-control" placeholder="Ví dụ: Làm sao để học ReactJS hiệu quả?" required>
+                        </div>
+                        <small class="form-text">Tiêu đề ngắn gọn, xúc tích thu hút người xem.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Chuyên mục</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-layer-group"></i>
+                            <select id="post-category" class="form-control">
+                                <option value="thao-luan">Thảo luận chung</option>
+                                <option value="lap-trinh">Lập trình (Frontend/Backend)</option>
+                                <option value="hoi-dap">Hỏi đáp lỗi code</option>
+                                <option value="tuyen-dung">Tuyển dụng / Việc làm</option>
+                            </select>
+                            <i class="fas fa-chevron-down arrow-icon"></i>
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label>Tags (phân tách bằng dấu phẩy)</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-tags"></i>
+                            <input type="text" id="post-tags" class="form-control" placeholder="vd: fastapi, postgres, react">
+                        </div>
+                        <small class="form-text">Tối đa 10 tag.</small>
+                    </div>
+<div class="form-group">
+                        <label>Nội dung chi tiết</label>
+                        <div class="input-wrapper textarea-wrapper">
+                            <textarea id="post-content" class="form-textarea" placeholder="Chia sẻ chi tiết... Đừng quên kèm code nếu cần thiết!" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions-right">
+                        <a href="index.html" class="btn-ghost">Hủy bỏ</a>
+                        <button type="submit" class="btn btn-gradient">
+                            Đăng bài ngay <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="create-post-sidebar">
+                <div class="sidebar-card info-card">
+                    <div class="card-header">
+                        <i class="fas fa-info-circle"></i>
+                        <h3>Quy định đăng bài</h3>
+                    </div>
+                    <ul class="guideline-list">
+                        <li>Đặt tiêu đề rõ ràng, tóm tắt được nội dung câu hỏi.</li>
+                        <li>Không spam, quảng cáo trái phép.</li>
+                        <li>Chọn đúng chuyên mục để bài viết dễ được tìm thấy.</li>
+                        <li>Sử dụng ngôn từ lịch sự, tôn trọng cộng đồng.</li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-card tip-card">
+                    <div class="card-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Mẹo viết bài hay</h3>
+                    </div>
+                    <p style="font-size: 0.95rem; color: #92400e; line-height: 1.6;">
+                        Hãy mô tả chi tiết vấn đề bạn gặp phải. Nếu là hỏi lỗi code, hãy chụp ảnh màn hình hoặc copy đoạn code bị lỗi vào để mọi người dễ dàng giúp đỡ bạn hơn nhé!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/threads.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết bài viết - Diễn Đàn IT</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Diễn Đàn <span class="highlight">IT</span></a>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm thảo luận...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+
+            <div class="nav-actions">
+                <div id="guest-actions" style="display: flex; gap: 10px;">
+                    <a href="login.html" class="btn btn-outline">Đăng nhập</a>
+                    <a href="register.html" class="btn btn-primary">Đăng ký</a>
+                </div>
+
+                <div id="user-actions" style="display: none; align-items: center; gap: 15px;">
+                    <a href="create-post.html" class="btn btn-primary">
+                        <i class="fa-solid fa-pen-to-square"></i> Đăng bài
+                    </a>
+                    
+                    <div class="nav-user">
+                        <img src="" alt="Avatar" id="nav-avatar">
+                        <span id="nav-username">User</span>
+                    </div>
+                    
+                    <button onclick="logout()" class="btn btn-outline" style="border: none; color: #dc2626;" title="Đăng xuất">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-layout">
+        
+        <aside class="sidebar">
+            <div class="menu-group">
+                <h3>Danh mục</h3>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Trang chủ</a></li>
+                    <li><a href="#"><i class="fas fa-code"></i> Lập trình</a></li>
+                    <li><a href="#"><i class="fas fa-question-circle"></i> Hỏi đáp</a></li>
+                    <li><a href="#"><i class="fas fa-briefcase"></i> Tuyển dụng</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="post-detail">
+            
+            <div class="breadcrumb">
+                <a href="index.html">Trang chủ</a> / 
+                <span id="crumb-category">Đang tải...</span> / 
+                <span id="crumb-title" style="color: #666;">...</span>
+            </div>
+
+            <article class="thread-card full-post" id="main-post-area">
+                
+                <div class="post-layout-container" style="display: flex; gap: 25px;">
+                    
+                    <div class="vote-column">
+                        <button class="vote-btn upvote" title="Ủng hộ"><i class="fas fa-caret-up"></i></button>
+                        <span class="vote-count" id="display-votes" style="font-weight: 700; font-size: 1.1rem; margin: 5px 0;">0</span>
+                        <span class="view-count" id="display-views" style="font-weight:600;color:#64748b;margin:6px 0;">0</span>
+                        <button class="vote-btn downvote" title="Không ủng hộ"><i class="fas fa-caret-down"></i></button>
+                    </div>
+
+                    <div class="content-column" style="flex: 1;">
+                        
+                        <div class="thread-header-modern" style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <img id="display-avatar" src="" alt="Avatar" class="avatar-round-lg">
+                            <div class="meta-info" style="margin-left: 12px; display: flex; flex-direction: column;">
+                                <span class="author" id="display-author" style="font-weight: 700; font-size: 1rem; color: #1f2937;">...</span>
+                                <div style="font-size: 0.85rem; color: #6b7280; margin-top: 2px;">
+                                    <span id="display-time">...</span>
+                                    <span style="margin: 0 5px;">•</span>
+                                    <span id="display-tag" class="category-badge">...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h1 class="post-title-modern" id="display-title" style="font-size: 1.8rem; font-weight: 800; color: #111827; margin-bottom: 15px; line-height: 1.3;">
+                            Đang tải bài viết...
+                        </h1>
+                        
+                        <div class="post-body-modern" id="display-content" style="white-space: pre-line; line-height: 1.7; font-size: 1.05rem; color: #374151;">
+                        </div>
+
+                        <div class="post-footer-actions">
+                            <button class="action-btn"><i class="fas fa-comment-alt"></i> Bình luận</button>
+                            <button class="action-btn"><i class="fas fa-share"></i> Chia sẻ</button>
+                            <button class="action-btn"><i class="fas fa-bookmark"></i> Lưu</button>
+                            <button class="action-btn more-btn"><i class="fas fa-ellipsis-h"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+
+            <section class="comments-section">
+                <h3 id="comment-count-header">Bình luận (0)</h3>
+
+                <div class="comment-input-box">
+                    <textarea id="comment-input" placeholder="Viết bình luận của bạn... (Hãy lịch sự và tôn trọng người khác)"></textarea>
+                    <div class="input-actions">
+                        <button class="btn btn-primary" type="button" id="sendCommentBtn">Gửi bình luận</button>
+                    </div>
+                </div>
+
+                <div class="comment-list" id="comment-list-container">
+                    <p style="text-align: center; color: #999;">Đang tải bình luận...</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/thread.js"></script>
+<script src="js/comments.js"></script>
+</body>
+</html>

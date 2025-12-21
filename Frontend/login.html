@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập - Diễn Đàn IT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="auth-page">
+
+<div class="auth-container">
+
+    <!-- HEADER -->
+    <div class="auth-header">
+        <a href="index.html" class="logo">
+            Diễn Đàn <span class="highlight">IT</span>
+        </a>
+        <p class="auth-subtitle">
+            Chào mừng trở lại! Vui lòng đăng nhập.
+        </p>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id="login-form">
+
+        <div class="form-group">
+            <label for="username">Tên đăng nhập</label>
+            <div class="input-wrapper">
+                <i class="fas fa-user"></i>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Nhập tên đăng nhập..."
+                    required
+                >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <div class="input-wrapper">
+                <i class="fas fa-lock"></i>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Nhập mật khẩu..."
+                    required
+                >
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <label class="remember-me">
+                <input type="checkbox"> Ghi nhớ tôi
+            </label>
+            <a href="#" class="forgot-pass">Quên mật khẩu?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+            Đăng nhập
+        </button>
+    </form>
+
+    <!-- DIVIDER -->
+    <div class="divider">
+        <span>Hoặc</span>
+    </div>
+
+    <!-- GOOGLE (UI only) -->
+    <button class="btn btn-google btn-block" type="button">
+        <i class="fab fa-google" style="color:#db4437;"></i>
+        Đăng nhập bằng Google
+    </button>
+
+    <!-- FOOTER -->
+    <div class="auth-footer">
+        <p>
+            Chưa có tài khoản?
+            <a href="register.html">Đăng ký ngay</a>
+        </p>
+        <a href="index.html" class="back-home">
+            <i class="fas fa-arrow-left"></i> Về trang chủ
+        </a>
+    </div>
+
+</div>
+
+<!-- JS -->
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+
+</body>
+</html>

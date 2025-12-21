@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cộng Đồng Dev - Trang Chủ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* CSS bổ sung cho phần hiển thị User đẹp hơn */
+        .nav-user-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            margin-right: 15px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        .nav-user-link:hover {
+            background-color: #f0f2f5;
+        }
+        .nav-user img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Diễn Đàn <span class="highlight">IT</span></a>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm bài viết..." onkeyup="searchPosts()">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+
+            <div class="nav-actions">
+                <div id="guest-actions" class="guest-actions">
+                    <a href="login.html" class="btn btn-outline">Đăng nhập</a>
+                    <a href="register.html" class="btn btn-primary">Đăng ký</a>
+                </div>
+
+                <div id="user-actions" class="user-actions auth-only">
+                    <a href="create-post.html" class="btn btn-primary" >
+                        <i class="fa-solid fa-pen-to-square"></i> Đăng bài
+                    </a>
+                    <a href="admin.html" class="btn btn-outline admin-only">
+                        <i class="fa-solid fa-user-shield"></i> Quản trị
+                    </a>
+                    
+                    <a href="profile.html" class="nav-user-link" title="Chỉnh sửa hồ sơ">
+                        <div class="nav-user" style="display: flex; align-items: center; gap: 8px;">
+                            <img src="images/default-avatar.png" alt="Avatar" id="nav-avatar">
+                            <span id="nav-username">User</span>
+                        </div>
+                    </a>
+
+                    <a href="#" data-logout class="logout-link" title="Đăng xuất">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Đăng xuất</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="menu-group">
+                <h3>Danh mục</h3>
+                <ul id="sidebar-menu">
+                    <li class="active" data-filter="latest">
+                        <a href="#"><i class="fas fa-home"></i> Trang chủ</a>
+                    </li>
+                    <li data-filter="trending">
+                         <a href="#">
+                            <i class="fas fa-fire" style="color: #ef4444;"></i> 
+                            Thịnh hành
+                        </a>
+                    </li>
+                    <li >
+                        <a href="#"><i class="fas fa-code"></i> Lập trình</a>
+                    </li>
+                    <li >
+                        <a href="#"><i class="fas fa-question-circle"></i> Hỏi đáp</a>
+                    </li>
+                    <li >
+                        <a href="#"><i class="fas fa-briefcase"></i> Tuyển dụng</a>
+                    </li>
+                    <li >
+                        <a href="#"><i class="fas fa-comments"></i> Thảo luận chung</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="feed">
+            <div class="feed-header">
+                <h2 id="feed-title">Tất cả bài viết</h2>
+                <div class="filter-tabs">
+                    <button class="active">Mới nhất</button>
+                </div>
+            </div>
+
+            <div id="post-container">
+                </div>
+        <div id="pagination" style="margin:16px 0;display:flex;align-items:center;gap:8px;"></div>
+        </main>
+    </div>
+
+    
+
+    
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/home.js"></script>
+
+</body>
+</html>
