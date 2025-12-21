@@ -4,9 +4,31 @@ document.addEventListener("DOMContentLoaded", () => {
   if (btn) btn.addEventListener("click", () => submitRootComment());
 
   // load when thread.js sets global; fallback parse from URL
-  const id = window.__THREAD_ID__ || (new URL(location.href).searchParams.get("id") ? Number(new URL(location.href).searchParams.get("id")) : null);
+  const id =
+    window.__THREAD_ID__ ||
+    (new URL(location.href).searchParams.get("id")
+      ? Number(new URL(location.href).searchParams.get("id"))
+      : null);
+
   if (id) loadComments(id);
 });
+
+function getMe() {
+  try {
+    return JSON.parse(localStorage.getItem("user_info") || "null");
+  } catch {
+    return null;
+  }
+}
+
+function canDeleteComment(c) {
+  if (!getToken()) return false;
+  const me = getMe();
+  const role = (me?.role || "").toLowerCase();
+  if (role === "admin") return true;
+  if (me?.id && c?.author_id && Number(me.id) === Number(c.author_id)) return true;
+  return false;
+}
 
 async function loadComments(threadId) {
   const container = document.getElementById("comment-list-container");
@@ -19,6 +41,9 @@ async function loadComments(threadId) {
     const count = countComments(data);
     const header = document.getElementById("comment-count-header");
     if (header) header.textContent = `${count} bình luận`;
+
+    // cập nhật UI role/admin-only trong comment
+    renderNavUser();
   } catch (err) {
     container.innerHTML = `<p style="color:#d00">Lỗi tải bình luận: ${escapeHtml(err.message)}</p>`;
   }
@@ -34,6 +59,10 @@ function countComments(nodes) {
   };
   walk(nodes);
   return n;
+}
+
+function authorName(c) {
+  return c.author?.username || c.user?.username || (c.author_id ? `User #${c.author_id}` : "User");
 }
 
 function renderCommentTree(nodes, container, threadId) {
@@ -53,16 +82,18 @@ function renderCommentNode(c, threadId, depth) {
   wrap.className = "comment-item";
   wrap.style.marginLeft = `${Math.min(depth * 18, 72)}px`;
 
+  const showDel = canDeleteComment(c) ? "inline-flex" : "none";
+
   wrap.innerHTML = `
     <div class="comment-content">
       <div class="comment-meta">
-        <span class="comment-author">User #${c.author_id}</span>
-        <span class="comment-time">${fmtDate(c.created_at)}</span>
+        <span class="comment-author">${escapeHtml(authorName(c))}</span>
+        <span class="comment-time">${escapeHtml(fmtDate(c.created_at))}</span>
       </div>
-      <div class="comment-text">${escapeHtml(c.content).replaceAll("\n","<br/>")}</div>
+      <div class="comment-text">${escapeHtml(c.content || "").replaceAll("\n","<br/>")}</div>
       <div class="comment-actions">
         <button class="btn btn-reply">Trả lời</button>
-        <button class="btn btn-del" style="display:${getToken() ? "inline-flex" : "none"}">Xóa</button>
+        <button class="btn btn-del" style="display:${showDel}">Xóa</button>
       </div>
     </div>
     <div class="reply-box" style="display:none;margin-top:8px">
@@ -137,7 +168,11 @@ function renderCommentNode(c, threadId, depth) {
 }
 
 async function submitRootComment() {
-  const threadId = window.__THREAD_ID__ || (new URL(location.href).searchParams.get("id") ? Number(new URL(location.href).searchParams.get("id")) : null);
+  const threadId =
+    window.__THREAD_ID__ ||
+    (new URL(location.href).searchParams.get("id")
+      ? Number(new URL(location.href).searchParams.get("id"))
+      : null);
   if (!threadId) return;
 
   if (!getToken()) {

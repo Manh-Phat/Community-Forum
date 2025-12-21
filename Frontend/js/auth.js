@@ -1,4 +1,5 @@
 // js/auth.js
+// Dùng chung các hàm trong api.js: apiFetch, getToken, setToken, clearToken, loadMeToStorage, renderNavUser
 
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("login-form");
@@ -12,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.addEventListener("click", (e) => {
       e.preventDefault();
       clearToken();
-      localStorage.removeItem("user_info");
       document.body.classList.remove("logged-in");
       alert("Đã đăng xuất!");
       location.href = "index.html";
@@ -115,36 +115,5 @@ function initNavbarAuthState() {
     renderNavUser();
   } else {
     document.body.classList.remove("logged-in");
-  }
-}
-// ===== RENDER NAV USER & ADMIN =====
-function renderNavUser() {
-  const user = JSON.parse(localStorage.getItem("user_info") || "null");
-  if (!user) return;
-
-  // Username
-  const nameEl = document.getElementById("nav-username");
-  if (nameEl) {
-    nameEl.textContent = user.username || "User";
-  }
-
-  // Avatar (fallback)
-  const avatarEl = document.getElementById("nav-avatar");
-  if (avatarEl) {
-    avatarEl.src =
-      user.avatar && user.avatar.trim() !== ""
-        ? user.avatar
-        : "images/default-avatar.png";
-  }
-
-  // ===== ADMIN LINK =====
-  const adminLink = document.querySelector(".admin-link");
-  if (adminLink) {
-    const isAdmin =
-      user.role === "admin" ||
-      user.is_admin === true ||
-      (user.username || "").toLowerCase() === "admin"; // fallback cho đồ án
-
-    adminLink.style.display = isAdmin ? "inline-flex" : "none";
   }
 }

@@ -1,5 +1,9 @@
 // js/api.js
-const API_BASE = "http://127.0.0.1:8000";
+// API_BASE ưu tiên: window.API_BASE (set trong HTML) -> localStorage -> mặc định localhost
+// Deploy frontend riêng: localStorage.setItem('API_BASE','https://community-forum-zzbo.onrender.com')
+const API_BASE = (typeof window !== "undefined" && window.API_BASE)
+  ? String(window.API_BASE)
+  : (localStorage.getItem("API_BASE") || "http://127.0.0.1:8000");
 
 // ===== TOKEN =====
 function getToken() {
@@ -11,6 +15,10 @@ function setToken(token) {
 function clearToken() {
   localStorage.removeItem("access_token");
   localStorage.removeItem("user_info");
+}
+function logout() {
+  clearToken();
+  location.href = "index.html";
 }
 
 // ===== JWT payload (đọc role nhanh để bật/tắt UI) =====
@@ -73,11 +81,12 @@ function escapeHtml(str) {
     .replaceAll("'", "&#039;");
 }
 
-// ===== NAV USER =====
+// ===== NAV USER (SINGLE SOURCE OF TRUTH) =====
 function renderNavUser() {
   const guestEl = document.getElementById("guest-actions");
   const userEl = document.getElementById("user-actions");
   const navName = document.getElementById("nav-username");
+  const navAvatar = document.getElementById("nav-avatar");
 
   const t = getToken();
   if (!t) {
@@ -93,15 +102,27 @@ function renderNavUser() {
   try { info = infoRaw ? JSON.parse(infoRaw) : null; } catch {}
 
   const name = info?.display_name || info?.username || "User";
+  const role = (info?.role || jwtPayload()?.role || "user").toLowerCase();
+
   if (navName) {
-    const badge = (info?.role || jwtPayload()?.role || "user").toLowerCase() === "admin"
+    const badge = role === "admin"
       ? '<span class="badge admin">ADMIN</span>'
       : '<span class="badge user">USER</span>';
     navName.innerHTML = `${escapeHtml(name)} ${badge}`;
   }
 
+  if (navAvatar) {
+    const avatarUrl = info?.avatar_url || info?.avatar || "";
+    navAvatar.src = avatarUrl ? avatarUrl : "images/default-avatar.png";
+  }
+
+  // Admin-only buttons/links
+  document.querySelectorAll(".admin-only").forEach((el) => {
+    el.style.display = role === "admin" ? "inline-flex" : "none";
+  });
+
   const adminLink = document.getElementById("nav-admin-link");
-  if (adminLink) adminLink.style.display = isAdmin() ? "inline-flex" : "none";
+  if (adminLink) adminLink.style.display = role === "admin" ? "inline-flex" : "none";
 }
 
 async function loadMeToStorage() {
@@ -112,6 +133,5 @@ async function loadMeToStorage() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // auto refresh nav
   renderNavUser();
 });

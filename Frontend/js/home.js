@@ -14,8 +14,6 @@ let CURRENT_QUERY = "";
 function initSortButtons() {
   const titleEl = document.getElementById("feed-title");
   if (!titleEl) return;
-
-  // Avoid double insert
   if (document.getElementById("btn-sort-latest")) return;
 
   const wrap = document.createElement("div");
@@ -83,18 +81,30 @@ function renderThreads(items) {
     .map((t) => {
       const cat = t.category ? `<span class="tag">#${escapeHtml(t.category)}</span>` : "";
       const tags = (t.tags || []).map((x) => `<span class="tag">#${escapeHtml(x)}</span>`).join(" ");
+
+      const excerpt = escapeHtml((t.content || "").slice(0, 180)) + (t.content?.length > 180 ? "..." : "");
+
       return `
       <div class="post-card">
         <h3 class="post-title">
           <a href="thread.html?id=${t.id}">${escapeHtml(t.title)}</a>
         </h3>
+
         <div class="post-meta">
           <span><i class="fa-regular fa-clock"></i> ${fmtDate(t.created_at)}</span>
           <span><i class="fa-regular fa-eye"></i> ${t.views}</span>
           <span><i class="fa-solid fa-arrow-up"></i> ${t.vote_score}</span>
         </div>
-        <p class="post-excerpt">${escapeHtml((t.content || "").slice(0, 180))}${t.content?.length > 180 ? "..." : ""}</p>
+
+        <p class="post-excerpt">${excerpt}</p>
+
         <div class="post-tags">${cat} ${tags}</div>
+
+        <div class="post-actions" style="margin-top:10px">
+          <a href="thread.html?id=${t.id}" class="btn-view" style="color:#2563eb;font-weight:600;text-decoration:none">
+            Xem thêm →
+          </a>
+        </div>
       </div>`;
     })
     .join("");

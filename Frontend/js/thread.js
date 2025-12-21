@@ -1,6 +1,7 @@
 // js/thread.js
 document.addEventListener("DOMContentLoaded", async () => {
   renderNavUser();
+
   const threadId = getThreadId();
   if (!threadId) {
     alert("Thiếu id bài viết!");
@@ -8,11 +9,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  // comments.js sẽ dùng
+  window.__THREAD_ID__ = threadId;
+
   await loadThread(threadId);
   await initVoting(threadId);
-
-  // comments.js will pick up threadId from window
-  window.__THREAD_ID__ = threadId;
 });
 
 function getThreadId() {
@@ -30,7 +31,7 @@ async function loadThread(id) {
     setText("display-time", fmtDate(t.created_at));
     setText("display-views", String(t.views ?? 0));
     setText("display-votes", String(t.vote_score ?? 0));
-    setHtml("display-content", escapeHtml(t.content).replaceAll("\n", "<br/>"));
+    setHtml("display-content", escapeHtml(t.content || "").replaceAll("\n", "<br/>"));
 
     const catEl = document.getElementById("crumb-category");
     if (catEl) catEl.textContent = t.category ? `#${t.category}` : "Chủ đề";
@@ -39,6 +40,14 @@ async function loadThread(id) {
     if (tagEl) {
       const tags = (t.tags || []).map((x) => `#${x}`).join(" ");
       tagEl.textContent = tags || "";
+    }
+
+    // ===== AUTHOR + AVATAR =====
+    setText("display-author", t.author?.username || t.username || "User");
+
+    const avatarEl = document.getElementById("display-avatar");
+    if (avatarEl) {
+      avatarEl.src = t.author?.avatar || t.author?.avatar_url || "images/default-avatar.png";
     }
 
   } catch (err) {
